@@ -14,19 +14,21 @@ import generateChapistaPDF from '../lib/pdf';
 })
 export class CargaPresupuestoComponent {
    public datosPresupuesto: Chapista = {
-    fecha: new Date(),
-    "señor/es": '',
-    localidad: '',
-    marcaVehiculo: '',
-    modelo: '',
-    chapaPatente: '',
-    detalle: [
-      // Un ítem por defecto para empezar
-      { nombre: '', precioUnitario: 0, cantidad: 1, precioTotal: 0 },
-    ],
-    observaciones: '',
-    total: 0
-  };
+       fecha: new Date(),
+       "señor/es": '',
+       localidad: '',
+       marcaVehiculo: '',
+       modelo: '',
+       chapaPatente: '',
+       detalle: [
+           // Un ítem por defecto para empezar
+           { nombre: '', precioUnitario: 0, cantidad: 1, precioTotal: 0 },
+       ],
+       numeroPresupuesto: 1626,
+       observaciones: '',
+       total: 0,
+       domicilio: ''
+   };
 
   constructor() { }
 

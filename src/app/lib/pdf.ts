@@ -1,16 +1,11 @@
-
-
-
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 // import { variable64 } from "../../../public/img";
 import { Chapista, Detalle } from "../interfaces/carga-presupuesto.interface";
 
-
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
 const generateChapistaPDF = (data: Chapista) => {
-  // Asegúrate de que data.detalle sea un array válido
   const tableBody = [
     [
       { text: "Nombre", style: "tableHeader" },
@@ -28,51 +23,48 @@ const generateChapistaPDF = (data: Chapista) => {
 
   const content: any[] = [];
 
-  // --- Encabezado del documento
+  // --- Encabezado con información de la empresa y del presupuesto
   content.push({
     columns: [
-
       {
         stack: [
-          // { image: variable64.miVar, width: 50 }, // Logo, si lo tienes
-          { text: "SERVICIO DEL AUTOMOTOR EN GENERAL. CHAPA Y PINTURA", style: "headerBusiness" },
-          { text: "TODAS LAS MARCAS Y MODELOS de Carlos Rojas", style: "headerBusinessSubtitle" },
-          { text: "Mendoza 1580 - 3016 Santo Tome", style: "contactInfo" },
-          { text: "cel: 342(15) 4726953", style: "contactInfo" },
+          // { image: variable64.miVar, width: 50 },
+          { text: "Auto Sport", style: "companyTitle" },
+          { text: "SERVICIO DEL AUTOMOTOR EN GENERAL", style: "companySubtitle" },
+          { text: "CHAPA Y PINTURA, TODAS LAS MARCAS Y MODELOS", style: "companySubtitle" },
+          { text: "de Carlos Rojas", style: "companySubtitle" },
+          { text: "Mendoza 1580-3016 Santo Tomé", style: "contactInfo" },
+          { text: "Cel.: 342 (15) 4 726953", style: "contactInfo" },
           { text: "email: auto_sport@hotmail.com.ar", style: "contactInfo" },
         ],
       },
       {
         stack: [
-          { text: "RECIBO DE TRABAJO DE CHAPISTERÍA", style: "header" },
-          { text: `Fecha: ${data.fecha.toLocaleDateString()}`, style: "subheader", alignment: "right" },
+          { text: "PRESUPUESTO", style: "budgetTitle", alignment: "right" },
+          { text: `N° ${data.numeroPresupuesto}`, style: "budgetNumber", alignment: "right" },
+          { text: `FECHA: ${data.fecha.toLocaleDateString()}`, style: "budgetDate", alignment: "right" },
         ],
         alignment: "right",
       },
     ],
     margin: [0, 0, 0, 20],
- });
-
-  // --- Información del cliente y vehículo
-  content.push({
-    text: "Datos del Cliente y Vehículo",
-    style: "sectionHeader",
-    margin: [0, 10, 0, 5],
   });
 
+  // --- Información del cliente y vehículo
   content.push({
     columns: [
       {
         stack: [
-          { text: `Señor/es: ${data["señor/es"]}`, style: "infoText" },
-          { text: `Localidad: ${data.localidad}`, style: "infoText" },
+          { text: `Señor/es: ${data["señor/es"]}`, style: "clientInfo" },
+          { text: `Domicilio: ${data.domicilio}`, style: "clientInfo" },
+          { text: `Localidad: ${data.localidad}`, style: "clientInfo" },
         ],
       },
       {
         stack: [
-          { text: `Marca del vehículo: ${data.marcaVehiculo}`, style: "infoText" },
-          { text: `Modelo: ${data.modelo}`, style: "infoText" },
-          { text: `Chapa Patente: ${data.chapaPatente}`, style: "infoText" },
+          { text: `Marca Vehículo: ${data.marcaVehiculo}`, style: "clientInfo" },
+          { text: `Modelo: ${data.modelo}`, style: "clientInfo" },
+          { text: `Chapa Patente: ${data.chapaPatente}`, style: "clientInfo" },
         ],
       },
     ],
@@ -81,8 +73,8 @@ const generateChapistaPDF = (data: Chapista) => {
 
   // --- Tabla de detalles
   content.push({
-    text: "Detalle de Trabajo",
-    style: "sectionHeader",
+    text: "DETALLE",
+    style: "tableHeaderTitle",
     margin: [0, 10, 0, 5],
   });
 
@@ -98,59 +90,53 @@ const generateChapistaPDF = (data: Chapista) => {
 
   // --- Observaciones y total
   content.push({
-    text: "Observaciones:",
-    style: "sectionHeader",
+    text: "OBSERVACIONES:",
+    style: "observationsTitle",
     margin: [0, 10, 0, 5],
   });
   content.push({
     text: data.observaciones,
-    style: "infoText",
+    style: "observationsText",
     margin: [0, 0, 0, 20],
   });
 
   content.push({
     columns: [
-      { text: "", width: "*" },
-      {
-        text: `TOTAL: $ ${data.total}`,
-        style: "total",
-        alignment: "right",
-        margin: [0, 10, 0, 10],
-      },
+      { text: `TOTAL $ ${data.total}`, style: "total", alignment: "right" },
     ],
+    margin: [0, 10, 0, 10],
+  });
+
+  content.push({
+    text: "(*) PRESUPUESTO VÁLIDO POR 30 DÍAS",
+    style: "validityText",
+    alignment: "left",
+    margin: [0, 5, 0, 5],
+  });
+
+  content.push({
+    text: "DUPLICADO",
+    style: "duplicateText",
+    alignment: "center",
+    margin: [0, 20, 0, 0],
   });
 
   // --- Definición de estilos
   const styles = {
-    header: {
-      fontSize: 18,
-      bold: true,
-      alignment: "right",
-    },
-    subheader: {
-      fontSize: 12,
-      margin: [0, 5, 0, 5],
-    },
-    sectionHeader: {
-      fontSize: 14,
-      bold: true,
-      margin: [0, 10, 0, 5],
-      decoration: "underline",
-    },
-    infoText: {
-      fontSize: 12,
-      margin: [0, 2, 0, 2],
-    },
-    tableHeader: {
-      bold: true,
-      fontSize: 12,
-      color: "black",
-      fillColor: "#eeeeee",
-    },
-    total: {
-      fontSize: 14,
-      bold: true,
-    },
+    companyTitle: { fontSize: 14, bold: true },
+    companySubtitle: { fontSize: 10 },
+    contactInfo: { fontSize: 8, margin: [0, 1, 0, 1] },
+    budgetTitle: { fontSize: 20, bold: true, color: "black" },
+    budgetNumber: { fontSize: 16, color: "black", margin: [0, 5, 0, 5] },
+    budgetDate: { fontSize: 10, margin: [0, 5, 0, 5] },
+    clientInfo: { fontSize: 10, margin: [0, 2, 0, 2] },
+    tableHeaderTitle: { fontSize: 10, bold: true, decoration: "underline" },
+    tableHeader: { bold: true, fontSize: 10, color: "black" },
+    observationsTitle: { fontSize: 10, bold: true },
+    observationsText: { fontSize: 10, margin: [0, 2, 0, 2] },
+    total: { fontSize: 14, bold: true },
+    validityText: { fontSize: 8 },
+    duplicateText: { fontSize: 10, bold: true, color: "#999999" },
   };
 
   const docDefinition: any = {
