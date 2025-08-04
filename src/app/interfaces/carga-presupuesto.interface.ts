@@ -7,7 +7,7 @@ export interface Detalle {
 
 export interface Chapista {
   fecha: Date;
-  numeroPresupuesto: number; // Nuevo campo
+  numeroPresupuesto: number | null; // Nuevo campo
   "señor/es": string;
   localidad: string;
   marcaVehiculo: string;

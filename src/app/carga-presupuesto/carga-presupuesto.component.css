@@ -1,11 +1,125 @@
-div{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.body {
+  font-family: Arial, sans-serif;
+  padding: 10px;
+  background-color: #f4f4f9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+align-items: center;
 }
 
-button{
-    padding: 10px;
-    background-color: aqua;
+/* El formulario en sí. Usamos Flexbox para apilar sus hijos verticalmente. */
+form {
+  display: flex;
+  flex-direction: column; /* Apila todos los elementos verticalmente en móviles */
+    row-gap: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
+  width: 100%;           /* Ocupa todo el ancho del contenedor */
+
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Los pares de label e input se apilan para ocupar el 100% del ancho */
+form > div {
+  display: flex;
+  flex-direction: column; /* Apila el label y el input uno sobre otro */
+  gap: 5px;
+}
+
+/* Los inputs ocupan el 100% del ancho disponible */
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.boton-agregar {
+  width: 100%;             /* Ocupa todo el ancho de la línea */
+  display: flex;           /* Habilita flexbox para alinear el botón dentro */
+  justify-content: center; /* Centra el botón horizontalmente */
+}
+
+th, td {
+  padding: 12px;
+  border: 1px solid #ddd;
+}
+th {
+  background-color: #f2f2f2;
+  color: #555;
+  font-weight: bold;
+}
+
+/* Estilos para los botones */
+button {
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  background-color: #007bff;
+  color: white;
+}
+button:hover {
+  background-color: #0056b3;
+}
+
+/* El botón, por defecto, ocupa el 100% en móviles */
+
+/* Estilos de la tabla, con un scroll horizontal si es muy ancha */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* En el celular, es común que la tabla se desborde, así que la envolvemos en un div con scroll */
+.table-responsive {
+  overflow-x: auto;
+}
+
+/* ======================================= */
+/* 2. MEDIA QUERIES PARA PANTALLAS MÁS GRANDES */
+/* ======================================= */
+
+/* Estilos para TABLETS y pantallas más grandes (a partir de 768px) */
+@media (min-width: 768px) {
+
+  /* El formulario deja de ser 100% de ancho para no verse tan estirado */
+  form {
+    max-width: 700px;
+    margin: 40px auto; /* Centrar el formulario en la pantalla */
+  }
+  .boton-agregar button {
+    width: 30%; /* ¡CLAVE! Hacemos que el botón ocupe el 100% del ancho de su contenedor en móviles */
+    min-width: unset; /* Opcional: remover el ancho mínimo */
+  }
+
+
+  /* Los campos generales del formulario se pueden organizar en una fila
+     para que el label y el input queden uno al lado del otro. */
+  form > div {
+    flex-direction: row; /* Ahora el label y el input están en fila */
+    align-items: center; /* Alineación vertical */
+
+    label {
+      width: 180px; /* Ancho fijo para alinear los inputs */
+      text-align: right;
+      padding-right: 10px;
+    }
+  }
+
+  /* La tabla de detalles puede tener un layout más estándar */
+  .table-responsive {
+    overflow-x: hidden; /* No necesita scroll horizontal en tablets */
+  }
+}
+
+/* Estilos para DESKTOPS y pantallas muy grandes (a partir de 1024px) */
+@media (min-width: 1024px) {
+  form {
+    max-width: 900px; /* Permitir que sea un poco más ancho */
+  }
 }

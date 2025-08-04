@@ -1,6 +1,10 @@
-<div>
+<div class="body">
 <form>
   <h2>Armado de presupuesto</h2>
+  <div>
+    <label for="numero_presupuesto">Numero de presupuesto</label>
+    <input id="numero_presupuesto" [(ngModel)]="datosPresupuesto.numeroPresupuesto" name="numero_presupuesto" required>
+  </div>
   <div>
     <label for="senores">Señor/es:</label>
     <input id="senores" [(ngModel)]="datosPresupuesto['señor/es']" name="senores" required>
@@ -55,14 +59,15 @@
           $ {{ item.precioTotal  }}
         </td>
         <td>
-          <button type="button" (click)="eliminarItem($index)">Eliminar</button>
+          <button type="button" (click)="eliminarItem($index)" mat-raised-button color="warn">Eliminar</button>
         </td>
             </tr>
         }
 
     </tbody>
   </table>
-  <button type="button" (click)="agregarItem()">Agregar Ítem</button>
+  <div class="boton-agregar"><button type="button" (click)="agregarItem()" mat-raised-button color="accent">Agregar</button></div>
+
 
   <hr>
 

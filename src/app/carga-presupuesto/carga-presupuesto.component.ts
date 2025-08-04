@@ -24,7 +24,7 @@ export class CargaPresupuestoComponent {
            // Un ítem por defecto para empezar
            { nombre: '', precioUnitario: 0, cantidad: 1, precioTotal: 0 },
        ],
-       numeroPresupuesto: 1626,
+       numeroPresupuesto: null,
        observaciones: '',
        total: 0,
        domicilio: ''
