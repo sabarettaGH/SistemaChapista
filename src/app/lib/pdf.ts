@@ -161,7 +161,7 @@ const generateChapistaPDF = (data: Chapista) => {
     styles,
   };
 
-  pdfMake.createPdf(docDefinition).open();
+  pdfMake.createPdf(docDefinition).download('presupuesto.pdf');
 };
 
 export default generateChapistaPDF;
