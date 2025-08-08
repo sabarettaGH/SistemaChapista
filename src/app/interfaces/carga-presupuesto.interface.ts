@@ -1,19 +1,16 @@
 export interface Detalle {
-  nombre: string;
-  precioUnitario: number;
-  precioTotal: number;
-  cantidad: number;
+  detalle: string;
 }
 
 export interface Chapista {
   fecha: Date;
-  numeroPresupuesto: number | null; // Nuevo campo
-  "señor/es": string;
+  numeroPresupuesto: number | null;
+  'señor/es': string;
   localidad: string;
   marcaVehiculo: string;
   modelo: string;
   chapaPatente: string;
-  domicilio:string;
+  domicilio: string;
   detalle: Detalle[];
   observaciones: string;
   total: number;

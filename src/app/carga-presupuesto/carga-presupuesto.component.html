@@ -1,84 +1,78 @@
 <div class="body">
-<form>
-  <h2>Armado de presupuesto</h2>
-  <div>
-    <label for="numero_presupuesto">Numero de presupuesto</label>
-    <input id="numero_presupuesto" [(ngModel)]="datosPresupuesto.numeroPresupuesto" name="numero_presupuesto" required>
-  </div>
-  <div>
-    <label for="senores">Señor/es:</label>
-    <input id="senores" [(ngModel)]="datosPresupuesto['señor/es']" name="senores" required>
-  </div>
-  <div>
-    <label for="domicilio">Domicilio:</label>
-    <input id="domicilio" [(ngModel)]="datosPresupuesto.domicilio" name="domicilio" required>
-  </div>
-  <div>
-    <label for="localidad">Localidad:</label>
-    <input id="localidad" [(ngModel)]="datosPresupuesto.localidad" name="localidad" required>
-  </div>
-  <div>
-    <label for="marcaVehiculo">Marca del vehículo:</label>
-    <input id="marcaVehiculo" [(ngModel)]="datosPresupuesto.marcaVehiculo" name="marcaVehiculo">
-  </div>
-  <div>
-    <label for="modelo">Modelo:</label>
-    <input id="modelo" [(ngModel)]="datosPresupuesto.modelo" name="modelo">
-  </div>
-  <div>
-    <label for="chapaPatente">Chapa Patente:</label>
-    <input id="chapaPatente" [(ngModel)]="datosPresupuesto.chapaPatente" name="chapaPatente">
-  </div>
+    <h1>Armado de presupuesto</h1>
+    <form>
 
-  <hr>
+        <div>
+            <label for="numero_presupuesto">Numero de presupuesto</label>
+            <input id="numero_presupuesto" [(ngModel)]="datosPresupuesto.numeroPresupuesto" name="numero_presupuesto"
+                required>
+        </div>
+        <div>
+            <label for="fecha">Fecha:</label>
+            <input id="fecha" [(ngModel)]="datosPresupuesto.fecha" name="fecha" required type="date">
+        </div>
+        <div>
+            <label for="senores">Señor/es:</label>
+            <input id="senores" [(ngModel)]="datosPresupuesto['señor/es']" name="senores" required>
+        </div>
+        <div>
+            <label for="domicilio">Domicilio:</label>
+            <input id="domicilio" [(ngModel)]="datosPresupuesto.domicilio" name="domicilio" required>
+        </div>
+        <div>
+            <label for="localidad">Localidad:</label>
+            <input id="localidad" [(ngModel)]="datosPresupuesto.localidad" name="localidad" required>
+        </div>
+        <div>
+            <label for="marcaVehiculo">Marca del vehículo:</label>
+            <input id="marcaVehiculo" [(ngModel)]="datosPresupuesto.marcaVehiculo" name="marcaVehiculo">
+        </div>
+        <div>
+            <label for="modelo">Modelo:</label>
+            <input id="modelo" [(ngModel)]="datosPresupuesto.modelo" name="modelo">
+        </div>
+        <div>
+            <label for="chapaPatente">Chapa Patente:</label>
+            <input id="chapaPatente" [(ngModel)]="datosPresupuesto.chapaPatente" name="chapaPatente">
+        </div>
 
-  <h2>Detalle del Trabajo</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Cantidad</th>
-        <th>Precio Unitario</th>
-        <th>Total</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-        @for(item of datosPresupuesto.detalle; track $index){
-            <tr>
-        <td>
-          <input [(ngModel)]="item.nombre" name="nombre{{$index}}" required>
-        </td>
-        <td>
-          <input type="number" [(ngModel)]="item.cantidad" name="cantidad{{$index}}" (change)="calcularTotal()" required>
-        </td>
-        <td>
-          <input type="number" [(ngModel)]="item.precioUnitario" name="precioUnitario{{$index}}" (change)="calcularTotal()" required>
-        </td>
-        <td>
-          $ {{ item.precioTotal  }}
-        </td>
-        <td>
-          <button type="button" (click)="eliminarItem($index)" mat-raised-button color="warn">Eliminar</button>
-        </td>
-            </tr>
-        }
+        <hr>
 
-    </tbody>
-  </table>
-  <div class="boton-agregar"><button type="button" (click)="agregarItem()" mat-raised-button color="accent">Agregar</button></div>
+        <h2>Detalle del Trabajo</h2>
+        <table>
 
+            <tbody>
+                @for (item of datosPresupuesto.detalle; track item; let i = $index) {
+                <tr class="tr-detalle">
+                    <td>
+                        <input [(ngModel)]="item.detalle" name="detalle_{{ i }}" required>
+                    </td>
+                    <td class="td-eliminar">
+                        <button type="button" class="boton-eliminar" (click)="eliminarItem(i)" mat-raised-button
+                            color="warn">-</button>
+                    </td>
+                </tr>
+                } @empty {
+                <tr>
+                    <td colspan="2">No hay detalles agregados.</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <button type="button" class="boton-agregar" (click)="agregarItem()" mat-raised-button color="accent">+</button>
+        <hr>
+        <div class="total">
+            <label for="total">Total</label>
+            <input type="number" [(ngModel)]="datosPresupuesto.total" name="total" placeholder="Total" required>
+        </div>
+        <h2>Observaciones</h2>
+        <div>
+            <textarea [(ngModel)]="datosPresupuesto.observaciones" name="observaciones"></textarea>
+        </div>
+        <h3>Total General: $ {{ datosPresupuesto.total | number:'1.2-2' }}</h3>
 
-  <hr>
+    </form>
 
-  <h2>Observaciones</h2>
-  <div>
-    <textarea [(ngModel)]="datosPresupuesto.observaciones" name="observaciones"></textarea>
-  </div>
-  <h3>Total General: $ {{ datosPresupuesto.total }}</h3>
-
-</form>
-
-<button (click)="onGeneratePDF()">Generar PDF</button>
+    <button (click)="onGeneratePDF()" class="boton-generate">Generar PDF</button>
 
 </div>

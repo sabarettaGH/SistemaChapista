@@ -1,36 +1,51 @@
+/* Estilos para el cuerpo de la página */
 .body {
   font-family: Arial, sans-serif;
-  padding: 10px;
+  padding: 30px;
+  row-gap: 1rem;
   background-color: #f4f4f9;
   display: flex;
   flex-direction: column;
   justify-content: center;
-align-items: center;
+  align-items: center;
+  box-sizing: border-box;
 }
 
-/* El formulario en sí. Usamos Flexbox para apilar sus hijos verticalmente. */
+/* Estilos para títulos y encabezados */
+h1 {
+  text-align: center;
+}
+
+h3 {
+  text-align: end;
+}
+
+/* Estilos para el formulario principal */
 form {
   display: flex;
-  flex-direction: column; /* Apila todos los elementos verticalmente en móviles */
-    row-gap: 20px;
-    padding-right: 10px;
-    padding-left: 10px;
-  width: 100%;           /* Ocupa todo el ancho del contenedor */
-
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 20px;
+  width: 100%;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
 
-/* Los pares de label e input se apilan para ocupar el 100% del ancho */
+/* Estilos para los contenedores de label e input */
 form > div {
   display: flex;
-  flex-direction: column; /* Apila el label y el input uno sobre otro */
+  flex-direction: column;
   gap: 5px;
+  width: 100%;
 }
 
-/* Los inputs ocupan el 100% del ancho disponible */
-input, textarea {
+/* Estilos para inputs y textarea */
+input,
+textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -38,20 +53,43 @@ input, textarea {
   box-sizing: border-box;
 }
 
-.boton-agregar {
-  width: 100%;             /* Ocupa todo el ancho de la línea */
-  display: flex;           /* Habilita flexbox para alinear el botón dentro */
-  justify-content: center; /* Centra el botón horizontalmente */
+/* Estilos para la tabla */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px; /* Agrega espacio vertical entre las filas */
 }
 
-th, td {
-  padding: 12px;
+th,
+td {
+  padding: 8px;
   border: 1px solid #ddd;
+  text-align: center;
 }
+
+/* El header de la tabla */
 th {
   background-color: #f2f2f2;
   color: #555;
   font-weight: bold;
+}
+
+/* Ajustes específicos de columnas */
+#th-detalle {
+  width: 80%; /* Ocupa la mayor parte del espacio */
+}
+
+#th-eliminar {
+  width: 20%; /* Espacio para el botón de eliminar */
+}
+
+.td-eliminar {
+  width: 20%;
+}
+
+/* Se eliminan los estilos del tr-detalle ya que border-spacing lo maneja */
+.tr-detalle {
+  /* Se eliminan los estilos problemáticos */
 }
 
 /* Estilos para los botones */
@@ -60,66 +98,97 @@ button {
   border-radius: 4px;
   cursor: pointer;
   border: none;
-  background-color: #007bff;
   color: white;
 }
-button:hover {
+
+.boton-agregar {
+  background-color: #3480d1;
+  width: 100%;
+}
+
+.boton-agregar:hover {
   background-color: #0056b3;
 }
 
-/* El botón, por defecto, ocupa el 100% en móviles */
-
-/* Estilos de la tabla, con un scroll horizontal si es muy ancha */
-table {
+.boton-generate {
+  background-color: #4caf50;
   width: 100%;
-  border-collapse: collapse;
+  margin-top: 20px;
 }
 
-/* En el celular, es común que la tabla se desborde, así que la envolvemos en un div con scroll */
-.table-responsive {
-  overflow-x: auto;
+.boton-generate:hover {
+  background-color: #45a049;
 }
 
-/* ======================================= */
-/* 2. MEDIA QUERIES PARA PANTALLAS MÁS GRANDES */
-/* ======================================= */
+.boton-eliminar {
+  background-color: #f44336;
+  width: 100%;
+}
 
-/* Estilos para TABLETS y pantallas más grandes (a partir de 768px) */
+.boton-eliminar:hover {
+  background-color: #d32f2f;
+}
+
+/* Estilos para el total */
+.total {
+  width: 100%;
+  text-align: left;
+  margin-top: 10px;
+}
+
+/* Media Queries para tablets y desktops */
 @media (min-width: 768px) {
+  .body {
+    font-family: Arial, sans-serif;
 
-  /* El formulario deja de ser 100% de ancho para no verse tan estirado */
+    background-color: #f4f4f9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+  }
   form {
     max-width: 700px;
-    margin: 40px auto; /* Centrar el formulario en la pantalla */
-  }
-  .boton-agregar button {
-    width: 30%; /* ¡CLAVE! Hacemos que el botón ocupe el 100% del ancho de su contenedor en móviles */
-    min-width: unset; /* Opcional: remover el ancho mínimo */
+    margin: 40px auto;
   }
 
-
-  /* Los campos generales del formulario se pueden organizar en una fila
-     para que el label y el input queden uno al lado del otro. */
   form > div {
-    flex-direction: row; /* Ahora el label y el input están en fila */
-    align-items: center; /* Alineación vertical */
-
-    label {
-      width: 180px; /* Ancho fijo para alinear los inputs */
-      text-align: right;
-      padding-right: 10px;
-    }
+    flex-direction: row;
+    align-items: center;
+    width: 48%; /* Para tener dos columnas de campos */
   }
 
-  /* La tabla de detalles puede tener un layout más estándar */
-  .table-responsive {
-    overflow-x: hidden; /* No necesita scroll horizontal en tablets */
+  form > div > label {
+    width: 150px;
+    text-align: right;
+    padding-right: 10px;
   }
-}
 
-/* Estilos para DESKTOPS y pantallas muy grandes (a partir de 1024px) */
-@media (min-width: 1024px) {
-  form {
-    max-width: 900px; /* Permitir que sea un poco más ancho */
+  form > div > input {
+    width: calc(100% - 160px);
+  }
+
+  textarea {
+    width: 100%;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  .boton-agregar {
+    width: 30%;
+  }
+
+  .boton-generate {
+    width: 30%;
+  }
+
+  .total {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 }
