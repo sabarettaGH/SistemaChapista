@@ -5,7 +5,10 @@ export interface Detalle {
 export interface Chapista {
   fecha: Date;
   numeroPresupuesto: number | null;
+  numeroSiniestro: number | null;
   'señor/es': string;
+  telefono: string;
+  correoElectronico: string;
   localidad: string;
   marcaVehiculo: string;
   modelo: string;

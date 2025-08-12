@@ -8,12 +8,26 @@
                 required>
         </div>
         <div>
+            <label for="numero_siniestro">Numero de siniestro</label>
+            <input id="numero_siniestro" [(ngModel)]="datosPresupuesto.numeroSiniestro" name="numero_siniestro"
+                required>
+        </div>
+        <div>
             <label for="fecha">Fecha:</label>
             <input id="fecha" [(ngModel)]="datosPresupuesto.fecha" name="fecha" required type="date">
         </div>
         <div>
             <label for="senores">Señor/es:</label>
             <input id="senores" [(ngModel)]="datosPresupuesto['señor/es']" name="senores" required>
+        </div>
+        <div>
+            <label for="telefono">Telefono:</label>
+            <input id="telefono" [(ngModel)]="datosPresupuesto.telefono" type="tel" name="telefono" required>
+        </div>
+        <div>
+            <label for="correoElectronico">Correo electronico:</label>
+            <input id="correoElectronico" type="email" [(ngModel)]="datosPresupuesto.correoElectronico"
+                name="correoElectronico" required>
         </div>
         <div>
             <label for="domicilio">Domicilio:</label>
@@ -63,7 +77,8 @@
         <hr>
         <div class="total">
             <label for="total">Total</label>
-            <input type="number" [(ngModel)]="datosPresupuesto.total" name="total" placeholder="Total" required>
+            <input type="number" [(ngModel)]="datosPresupuesto.total" mask="separator.2" thousandSeparator="."
+                name="total" placeholder="Total" required>
         </div>
         <h2>Observaciones</h2>
         <div>

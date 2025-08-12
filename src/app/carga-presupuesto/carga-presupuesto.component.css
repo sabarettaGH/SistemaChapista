@@ -87,11 +87,6 @@ th {
   width: 20%;
 }
 
-/* Se eliminan los estilos del tr-detalle ya que border-spacing lo maneja */
-.tr-detalle {
-  /* Se eliminan los estilos problemáticos */
-}
-
 /* Estilos para los botones */
 button {
   padding: 10px 15px;

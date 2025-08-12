@@ -3,11 +3,12 @@ import { Chapista } from '../interfaces/carga-presupuesto.interface';
 import { FormsModule } from '@angular/forms';
 import generateChapistaPDF from '../lib/pdf';
 import { DecimalPipe } from '@angular/common';
+import { NgxMaskDirective } from 'ngx-mask'; // <-- ¡Solo necesitas la directiva!
 
 @Component({
   selector: 'app-carga-presupuesto',
   standalone: true,
-  imports: [FormsModule, DecimalPipe],
+  imports: [FormsModule, DecimalPipe, NgxMaskDirective],
   templateUrl: './carga-presupuesto.component.html',
   styleUrl: './carga-presupuesto.component.css',
 })
@@ -24,6 +25,9 @@ export class CargaPresupuestoComponent {
     observaciones: '',
     total: 0,
     domicilio: '',
+    numeroSiniestro: null,
+    telefono: '',
+    correoElectronico: '',
   };
 
   constructor() {}

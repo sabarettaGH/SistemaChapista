@@ -65,12 +65,21 @@ const generateChapistaPDF = (data: Chapista) => {
       {
         stack: [
           { text: `Señor/es: ${data['señor/es']}`, style: 'clientInfo' },
+          { text: `Telefono: ${data.telefono}`, style: 'clientInfo' },
+          {
+            text: `Correo Electrónico: ${data.correoElectronico}`,
+            style: 'clientInfo',
+          },
           { text: `Domicilio: ${data.domicilio}`, style: 'clientInfo' },
           { text: `Localidad: ${data.localidad}`, style: 'clientInfo' },
         ],
       },
       {
         stack: [
+          {
+            text: `N° de Siniestro: ${data.numeroSiniestro}`,
+            style: 'clientInfo',
+          },
           {
             text: `Marca Vehículo: ${data.marcaVehiculo}`,
             style: 'clientInfo',
