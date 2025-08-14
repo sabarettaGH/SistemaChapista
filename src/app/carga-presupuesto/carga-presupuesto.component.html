@@ -77,14 +77,14 @@
 
         <div class="total">
             <label for="total">Total</label>
-            <input type="number" [(ngModel)]="datosPresupuesto.total" mask="separator.2" thousandSeparator="."
-                name="total" placeholder="Total" required>
+            <input type="number" [(ngModel)]="datosPresupuesto.importeNeto" (ngModelChange)="calcularIva()" name="total"
+                placeholder="Total" required>
         </div>
         <h2>Observaciones</h2>
         <div>
             <textarea [(ngModel)]="datosPresupuesto.observaciones" name="observaciones"></textarea>
         </div>
-        <h3>Total General: $ {{ datosPresupuesto.total | number:'1.2-2' }}</h3>
+        <h3>Total neto: $ {{ datosPresupuesto.importeNeto | number:'1.0-2' }}</h3>
 
     </form>
 

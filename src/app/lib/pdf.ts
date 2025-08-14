@@ -1,7 +1,8 @@
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-import { miImage } from './img';
+import { miImage } from '../../assets/logo';
 import { Chapista, Detalle } from '../interfaces/carga-presupuesto.interface';
+import { style } from '@angular/animations';
 
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
@@ -120,16 +121,61 @@ const generateChapistaPDF = (data: Chapista) => {
   });
 
   content.push({
-    columns: [
-      {
-        text: `TOTAL $ ${data.total.toLocaleString('es-AR', {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}`,
-        style: 'total',
-        alignment: 'right',
-      },
-    ],
+    table: {
+      widths: ['*'], // ancho completo
+      body: [
+        [
+          {
+            stack: [
+              {
+                text: `Importe neto: $${data.importeNeto.toLocaleString(
+                  'es-AR',
+                  {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }
+                )}`,
+                style: 'importeNeto',
+                alignment: 'right',
+                margin: [0, 0, 0, 5],
+              },
+              {
+                text: `IVA ${
+                  data.ivaPorcentaje
+                }%: $${data.ivaDiscrimado.toLocaleString('es-AR', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}`,
+                style: 'ivaDiscrminado',
+                alignment: 'right',
+                margin: [0, 0, 0, 5],
+              },
+              {
+                text: `IMPORTE TOTAL: $${data.importeTotal.toLocaleString(
+                  'es-AR',
+                  {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }
+                )}`,
+                style: 'importeTotal',
+                alignment: 'right',
+              },
+            ],
+          },
+        ],
+      ],
+    },
+    layout: {
+      hLineWidth: () => 1, // grosor horizontal
+      vLineWidth: () => 1, // grosor vertical
+      hLineColor: () => '#000000', // color negro
+      vLineColor: () => '#000000',
+      paddingLeft: () => 5,
+      paddingRight: () => 5,
+      paddingTop: () => 5,
+      paddingBottom: () => 5,
+    },
     margin: [0, 10, 0, 10],
   });
 
@@ -160,7 +206,9 @@ const generateChapistaPDF = (data: Chapista) => {
     detalleText: { fontSize: 9, margin: [0, 5, 0, 5] },
     observationsTitle: { fontSize: 10, bold: true },
     observationsText: { fontSize: 10, margin: [0, 2, 0, 2] },
-    total: { fontSize: 14, bold: true },
+    importeNeto: { fontSize: 11, bold: false },
+    ivaDiscrminado: { fontSize: 11, bold: false },
+    importeTotal: { fontSize: 14, bold: true },
     validityText: { fontSize: 8 },
     duplicateText: { fontSize: 10, bold: true, color: '#999999' },
   };
@@ -170,7 +218,7 @@ const generateChapistaPDF = (data: Chapista) => {
     styles,
   };
 
-  pdfMake.createPdf(docDefinition).download('presupuesto.pdf');
+  pdfMake.createPdf(docDefinition).download('Presupuesto.pdf');
 };
 
 export default generateChapistaPDF;

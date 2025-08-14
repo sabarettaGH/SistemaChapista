@@ -3,12 +3,11 @@ import { Chapista } from '../interfaces/carga-presupuesto.interface';
 import { FormsModule } from '@angular/forms';
 import generateChapistaPDF from '../lib/pdf';
 import { DecimalPipe } from '@angular/common';
-import { NgxMaskDirective } from 'ngx-mask'; // <-- ¡Solo necesitas la directiva!
 
 @Component({
   selector: 'app-carga-presupuesto',
   standalone: true,
-  imports: [FormsModule, DecimalPipe, NgxMaskDirective],
+  imports: [FormsModule, DecimalPipe],
   templateUrl: './carga-presupuesto.component.html',
   styleUrl: './carga-presupuesto.component.css',
 })
@@ -23,7 +22,10 @@ export class CargaPresupuestoComponent {
     detalle: [],
     numeroPresupuesto: null,
     observaciones: '',
-    total: 0,
+    importeNeto: 0,
+    ivaPorcentaje: 21,
+    ivaDiscrimado: 0,
+    importeTotal: 0,
     domicilio: '',
     numeroSiniestro: null,
     telefono: '',
@@ -32,14 +34,20 @@ export class CargaPresupuestoComponent {
 
   constructor() {}
 
-  // calcularTotal(): void {
-  //     let totalGeneral = 0;
-  //     this.datosPresupuesto.detalle.forEach((item) => {
-  //     item.precioTotal = item.cantidad * item.precioUnitario;
-  //     totalGeneral += item.precioTotal;
-  //     });
-  //     this.datosPresupuesto.total = totalGeneral;
-  // }
+  private settearValores(ivaDiscrimado: number, importeTotal: number) {
+    this.datosPresupuesto.ivaDiscrimado = ivaDiscrimado;
+    this.datosPresupuesto.importeTotal = importeTotal;
+  }
+  calcularIva(): void {
+    let ivaDiscriminado =
+      this.datosPresupuesto.importeNeto *
+      (this.datosPresupuesto.ivaPorcentaje / 100);
+
+    let importeTotal = this.datosPresupuesto.importeNeto + ivaDiscriminado;
+
+    this.settearValores(ivaDiscriminado, importeTotal);
+    console.log('hola' + ivaDiscriminado + ' ' + importeTotal);
+  }
 
   agregarItem(): void {
     this.datosPresupuesto.detalle.push({

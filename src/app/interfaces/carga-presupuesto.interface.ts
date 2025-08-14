@@ -16,5 +16,8 @@ export interface Chapista {
   domicilio: string;
   detalle: Detalle[];
   observaciones: string;
-  total: number;
+  importeNeto: number; // Total sin IVA
+  ivaPorcentaje: number; // IVA calculado (21% del totalSinIva)
+  ivaDiscrimado:number;
+  importeTotal: number;
 }
